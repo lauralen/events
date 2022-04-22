@@ -52,14 +52,14 @@ function Artist() {
           src={require('./assets/skiddle.png')}
         />
       </header>
-      <main>
+      <main className="py-5 px-72">
         {
           {
             loading: <p>Loading...</p>,
             failed: <p>Failed to load artist data</p>,
             idle: (
               <>
-                <h2>{data?.name}</h2>
+                <h2 className="text-2xl text-center">{data?.name}</h2>
                 <p>{data?.description}</p>
                 <p>Spotify popularity: {data?.spotifyPopularity}</p>
               </>

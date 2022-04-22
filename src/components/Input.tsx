@@ -4,7 +4,14 @@ const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   placeholder,
   ...rest
 }) => {
-  return <input aria-label={placeholder} placeholder={placeholder} {...rest} />
+  return (
+    <input
+      className="w-72 p-2 rounded text-center"
+      aria-label={placeholder}
+      placeholder={placeholder}
+      {...rest}
+    />
+  )
 }
 
 export default Input

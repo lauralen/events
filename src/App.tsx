@@ -58,45 +58,48 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <header>
-                <img
-                  className="header--logo"
-                  alt="Skiddle logo"
-                  src={require('./assets/skiddle.png')}
-                />
-                <Input
-                  value={searchValue}
-                  placeholder="search for events"
-                  onChange={(e) => setSearchValue(e.target.value)}
-                />
-              </header>
-              <main>
-                {
+      <div className="min-h-screen bg-slate-200">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <header className="p-5 flex items-center flex-col bg-cyan-400">
+                  <img
+                    className="w-52"
+                    alt="Skiddle logo"
+                    src={require('./assets/skiddle.png')}
+                  />
+                  <Input
+                    type="search"
+                    value={searchValue}
+                    placeholder="search for events"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                </header>
+                <main>
                   {
-                    loading: <p>Loading...</p>,
-                    failed: <p>Failed to load events</p>,
-                    noResults: <p>No events found</p>,
-                    idle: (
-                      <ul className="grid">
-                        {events?.map((event) => {
-                          return <EventCard key={event.id} data={event} />
-                        })}
-                      </ul>
-                    ),
-                  }[getUiStatus()]
-                }
-              </main>
-            </div>
-          }
-        />
-        <Route path="/event/:id" element={<EventPage />} />
-        <Route path="/artist/:id" element={<ArtistPage />} />
-      </Routes>
+                    {
+                      loading: <p>Loading...</p>,
+                      failed: <p>Failed to load events</p>,
+                      noResults: <p>No events found</p>,
+                      idle: (
+                        <ul className="grid grid-cols-3 gap-5 py-5 px-52">
+                          {events?.map((event) => {
+                            return <EventCard key={event.id} data={event} />
+                          })}
+                        </ul>
+                      ),
+                    }[getUiStatus()]
+                  }
+                </main>
+              </div>
+            }
+          />
+          <Route path="/event/:id" element={<EventPage />} />
+          <Route path="/artist/:id" element={<ArtistPage />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }

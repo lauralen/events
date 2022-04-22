@@ -76,35 +76,39 @@ function Event() {
           src={require('./assets/skiddle.png')}
         />
       </header>
-      <main>
+      <main className="py-5 px-72">
         {
           {
             loading: <p>Loading...</p>,
             failed: <p>Failed to load event data</p>,
             idle: (
               <>
-                <h2>{data?.eventname}</h2>
-                <h3>{data?.description}</h3>
+                <h2 className="text-2xl text-center">{data?.eventname}</h2>
+                <h3 className="text-xl my-2">{data?.description}</h3>
                 <ul>
                   <li>Start date: {data?.dateStart}</li>
                   <li>End date: {data?.dateEnd}</li>
                   <li>Entry price: {data?.entryprice}</li>
                   <li>Min age: {data?.MinAge}</li>
                 </ul>
-                Artists:
-                <ul>
-                  {data?.artists?.map(({ artistid, name }: Artist) => {
-                    return (
-                      <li key={artistid}>
-                        <Link
-                          to={generatePath('/artist/:id', { id: artistid })}
-                        >
-                          {name}
-                        </Link>
-                      </li>
-                    )
-                  })}
-                </ul>
+                {data?.artists.length ? (
+                  <>
+                    Artists:
+                    <ul className="list-disc list-inside">
+                      {data?.artists?.map(({ artistid, name }: Artist) => {
+                        return (
+                          <li key={artistid}>
+                            <Link
+                              to={generatePath('/artist/:id', { id: artistid })}
+                            >
+                              {name}
+                            </Link>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </>
+                ) : null}
               </>
             ),
           }[status]
