@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
+
 import Input from './components/Input'
+import EventCard from './components/EventCard'
+import { Event } from './types'
+
 const { REACT_APP_API_KEY } = process.env
 
 const BASE_URL = 'https://www.skiddle.com/api/v1/events/'
@@ -8,7 +12,7 @@ type Status = 'idle' | 'loading' | 'failed'
 type UiStatus = Status | 'noResults'
 
 function App() {
-  const [events, setEvents] = useState<any>()
+  const [events, setEvents] = useState<Event[]>()
   const [searchValue, setSearchValue] = useState<string>('')
   const [status, setStatus] = useState<Status>('idle')
 
@@ -22,13 +26,14 @@ function App() {
         const data = await result.json()
         const formattedEvents = data.results.map(
           // @ts-ignore
-          ({ id, description, eventname, startdate, venue }) => {
+          ({ id, description, eventname, startdate, venue, imageurl }) => {
             return {
               id,
               description,
               eventname,
               startdate,
               venuename: venue.name,
+              imageurl,
             }
           }
         )
@@ -43,7 +48,7 @@ function App() {
   }, [searchValue])
 
   const getUiStatus = (): UiStatus => {
-    if (status === 'idle' && !events.length) {
+    if (status === 'idle' && !events?.length) {
       return 'noResults'
     } else {
       return status
@@ -66,7 +71,13 @@ function App() {
             loading: <p>Loading...</p>,
             failed: <p>Failed to load events</p>,
             noResults: <p>No events found</p>,
-            idle: <div>events</div>,
+            idle: (
+              <ul>
+                {events?.map((event) => {
+                  return <EventCard key={event.id} data={event} />
+                })}
+              </ul>
+            ),
           }[getUiStatus()]
         }
       </main>
