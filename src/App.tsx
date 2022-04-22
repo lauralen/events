@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Input from './components/Input'
 import EventCard from './components/EventCard'
 import { Event } from './types'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 
 const { REACT_APP_API_KEY } = process.env
 
@@ -26,14 +27,14 @@ function App() {
         const data = await result.json()
         const formattedEvents = data.results.map(
           // @ts-ignore
-          ({ id, description, eventname, startdate, venue, imageurl }) => {
+          ({ id, description, eventname, startdate, venue, largeimageurl }) => {
             return {
               id,
               description,
               eventname,
               startdate,
               venuename: venue.name,
-              imageurl,
+              imageurl: largeimageurl,
             }
           }
         )
@@ -56,36 +57,46 @@ function App() {
   }
 
   return (
-    <div>
-      <header>
-        <img
-          className="header--logo"
-          alt="Skiddle logo"
-          src={require('./assets/skiddle.png')}
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <header>
+                <img
+                  className="header--logo"
+                  alt="Skiddle logo"
+                  src={require('./assets/skiddle.png')}
+                />
+                <Input
+                  value={searchValue}
+                  placeholder="search for events"
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
+              </header>
+              <main>
+                {
+                  {
+                    loading: <p>Loading...</p>,
+                    failed: <p>Failed to load events</p>,
+                    noResults: <p>No events found</p>,
+                    idle: (
+                      <ul className="grid">
+                        {events?.map((event) => {
+                          return <EventCard key={event.id} data={event} />
+                        })}
+                      </ul>
+                    ),
+                  }[getUiStatus()]
+                }
+              </main>
+            </div>
+          }
         />
-        <Input
-          value={searchValue}
-          placeholder="search for events"
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-      </header>
-      <main>
-        {
-          {
-            loading: <p>Loading...</p>,
-            failed: <p>Failed to load events</p>,
-            noResults: <p>No events found</p>,
-            idle: (
-              <ul>
-                {events?.map((event) => {
-                  return <EventCard key={event.id} data={event} />
-                })}
-              </ul>
-            ),
-          }[getUiStatus()]
-        }
-      </main>
-    </div>
+        <Route path="/event/:id" element={<div>Selected event</div>} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

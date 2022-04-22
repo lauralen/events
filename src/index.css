@@ -31,3 +31,39 @@ header {
 .header--logo {
   width: 200px;
 }
+
+main {
+  background-color: lightgray;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px 200px;
+}
+
+.event-card {
+  background-color: white;
+}
+
+.event-card--img {
+  width: 100%;
+}
+
+.event-card--text-wrapper {
+  padding: 10px;
+}
+
+.event-card--name {
+  text-align: center;
+  font-size: 18px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+ul {
+  margin: 0;
+}
