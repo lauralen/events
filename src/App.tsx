@@ -56,9 +56,13 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div>
       <header>
-        <div>skiddle</div>
+        <img
+          className="header--logo"
+          alt="Skiddle logo"
+          src={require('./assets/skiddle.png')}
+        />
         <Input
           value={searchValue}
           placeholder="search for events"
