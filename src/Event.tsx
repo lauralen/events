@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { Link, useParams, generatePath } from 'react-router-dom'
 
-const { REACT_APP_API_KEY } = process.env
-
-const BASE_URL = 'https://www.skiddle.com/api/v1/events/'
+const { REACT_APP_API_KEY, REACT_APP_BASE_URL } = process.env
 
 type Status = 'idle' | 'loading' | 'failed'
 
@@ -36,7 +34,7 @@ function Event() {
       setStatus('loading')
       try {
         const result = await fetch(
-          `${BASE_URL}/${id}/?api_key=${REACT_APP_API_KEY}`
+          `${REACT_APP_BASE_URL}/events/${id}/?api_key=${REACT_APP_API_KEY}`
         )
         const { results: data } = await result.json()
 

@@ -7,9 +7,7 @@ import EventPage from './Event'
 import ArtistPage from './Artist'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-const { REACT_APP_API_KEY } = process.env
-
-const BASE_URL = 'https://www.skiddle.com/api/v1/events/'
+const { REACT_APP_API_KEY, REACT_APP_BASE_URL } = process.env
 
 type Status = 'idle' | 'loading' | 'failed'
 type UiStatus = Status | 'noResults'
@@ -24,7 +22,7 @@ function App() {
       setStatus('loading')
       try {
         const result = await fetch(
-          `${BASE_URL}search/?api_key=${REACT_APP_API_KEY}&keyword=${searchValue}`
+          `${REACT_APP_BASE_URL}/events/search/?api_key=${REACT_APP_API_KEY}&keyword=${searchValue}`
         )
         const data = await result.json()
         const formattedEvents = data.results.map(
