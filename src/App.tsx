@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 
 import Input from './components/Input'
 import EventCard from './components/EventCard'
 import { Event } from './types'
 import EventPage from './Event'
 import ArtistPage from './Artist'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const { REACT_APP_API_KEY, REACT_APP_BASE_URL } = process.env
 
@@ -59,24 +59,28 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-slate-200">
+        <header className="p-5 pb-0 flex items-center flex-col bg-cyan-400">
+          <Link to="/">
+            <img
+              className="w-52"
+              alt="Skiddle logo"
+              src={require('./assets/skiddle.png')}
+            />
+          </Link>
+        </header>
         <Routes>
           <Route
             path="/"
             element={
               <div>
-                <header className="p-5 flex items-center flex-col bg-cyan-400">
-                  <img
-                    className="w-52"
-                    alt="Skiddle logo"
-                    src={require('./assets/skiddle.png')}
-                  />
+                <div className="p-5 pt-0 flex items-center flex-col bg-cyan-400">
                   <Input
                     type="search"
                     value={searchValue}
                     placeholder="search for events"
                     onChange={(e) => setSearchValue(e.target.value)}
                   />
-                </header>
+                </div>
                 <main>
                   {
                     {
