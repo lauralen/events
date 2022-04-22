@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 import Input from './components/Input'
 import EventCard from './components/EventCard'
 import { Event } from './types'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import EventPage from './Event'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const { REACT_APP_API_KEY } = process.env
 
@@ -94,7 +95,7 @@ function App() {
             </div>
           }
         />
-        <Route path="/event/:id" element={<div>Selected event</div>} />
+        <Route path="/event/:id" element={<EventPage />} />
       </Routes>
     </BrowserRouter>
   )
