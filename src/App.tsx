@@ -4,6 +4,7 @@ import Input from './components/Input'
 import EventCard from './components/EventCard'
 import { Event } from './types'
 import EventPage from './Event'
+import ArtistPage from './Artist'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const { REACT_APP_API_KEY } = process.env
@@ -96,6 +97,7 @@ function App() {
           }
         />
         <Route path="/event/:id" element={<EventPage />} />
+        <Route path="/artist/:id" element={<ArtistPage />} />
       </Routes>
     </BrowserRouter>
   )
