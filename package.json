@@ -36,6 +36,9 @@
       "react-app",
       "plugin:prettier/recommended"
     ],
+    "plugins": [
+      "prettier"
+    ],
     "rules": {
       "no-console": 1,
       "require-atomic-updates": 1,
